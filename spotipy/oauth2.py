@@ -98,8 +98,8 @@ class SpotifyOAuth(object):
     OAUTH_AUTHORIZE_URL = 'https://accounts.spotify.com/authorize'
     OAUTH_TOKEN_URL = 'https://accounts.spotify.com/api/token'
 
-    def __init__(self, client_id, client_secret, redirect_uri,
-            state=None, scope=None, cache_path=None, proxies=None):
+    def __init__(self, client_id= None, client_secret= None, redirect_uri= None,
+            state=None, scope= None, cache_path=None, proxies=None):
         '''
             Creates a SpotifyOAuth object
 
@@ -111,6 +111,14 @@ class SpotifyOAuth(object):
                  - scope - the desired scope of the request
                  - cache_path - path to location to save tokens
         '''
+        if not client_id:
+            client_id = os.getenv('SPOTIPY_CLIENT_ID')
+
+        if not client_secret:
+            client_secret = os.getenv('SPOTIPY_CLIENT_SECRET')
+
+        if not redirect_uri:
+            redirect_uri = os.getenv('SPOTIPY_REDIRECT_URI')
 
         self.client_id = client_id
         self.client_secret = client_secret
